@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>GMod Loading Screen</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Подключаем старый шрифт (для текста) и новый шрифт Orbitron (для заголовка) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
         /* БАЗОВЫЕ НАСТРОЙКИ */
         body, html {
@@ -20,7 +21,7 @@
         .bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover; background-position: center;
-            opacity: 0; transition: opacity 2s ease-in-out; /* Плавность переходов */
+            opacity: 0; transition: opacity 2s ease-in-out;
         }
         .bg-image.active { opacity: 1; }
 
@@ -38,8 +39,16 @@
             padding-left: 5%; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         }
 
-        /* НАЗВАНИЕ СЕРВЕРА */
-        h1 { font-size: 5rem; font-weight: 900; margin: 0; text-transform: uppercase; color: #ff3366; }
+        /* НАЗВАНИЕ СЕРВЕРА (ОБНОВЛЕНО) */
+        h1 { 
+            font-family: 'Orbitron', sans-serif; /* Тот самый квадратный шрифт */
+            font-size: 6rem; /* Сделал чуть больше, так как шрифт другой */
+            font-weight: 900; 
+            margin: 0; 
+            text-transform: uppercase; 
+            color: #ff3366; 
+            letter-spacing: 3px; /* Расстояние между буквами */
+        }
         h2 { font-size: 2rem; font-weight: 400; margin: 10px 0 30px 0; color: #fff; }
 
         /* ИНФОБЛОК */
@@ -66,7 +75,7 @@
 </head>
 <body>
 
-    <!-- МУЗЫКА НА ФОНЕ. Файл music.mp3 должен лежать на гитхабе рядом с этим кодом -->
+    <!-- МУЗЫКА НА ФОНЕ -->
     <audio id="bg-music" src="song.mp3" autoplay loop></audio>
 
     <!-- КОНТЕЙНЕР ДЛЯ КАРТИНОК -->
@@ -75,7 +84,8 @@
 
     <!-- ТЕКСТ НА ЭКРАНЕ -->
     <div id="content">
-        <h1>СУПЕР СЕРВЕР</h1>
+        <!-- ОБНОВЛЕНО ИМЯ СЕРВЕРА -->
+        <h1>Kittie town</h1>
         <h2>Добро пожаловать!</h2>
         
         <div class="info-box">
@@ -95,17 +105,13 @@
     </div>
 
     <script>
-        /* ==========================================
-           НАСТРОЙКА КАРТИНОК. 
-           Файлы 1.jpg, 2.jpg, 3.jpg грузи на гитхаб
-           ========================================== */
         const images = [
             "kittie.png", 
             "two2.png", 
             "three3.png"  
         ];
 
-        /* ЛОГИКА СМЕНЫ КАРТИНОК КАК В МЕНЮ GMOD */
+        /* ЛОГИКА СМЕНЫ КАРТИНОК */
         const bgContainer = document.getElementById('background-container');
         let currentIndex = 0;
 
@@ -123,11 +129,15 @@
             bgDivs[currentIndex].classList.remove('active');
             currentIndex = (currentIndex + 1) % images.length;
             bgDivs[currentIndex].classList.add('active');
-        }, 5000); // 5000 = 5 секунд на одну картинку
+        }, 5000);
 
-        /* ГРОМКОСТЬ МУЗЫКИ (0.3 = 30%) */
+        /* НАСТРОЙКА МУЗЫКИ */
         let music = document.getElementById('bg-music');
-        music.volume = 0.3; 
+        music.volume = 0.3; // Громкость 30%
+        // Принудительно запускаем музыку (иногда Garry's Mod капризничает с autoplay)
+        window.addEventListener('DOMContentLoaded', () => {
+            music.play().catch(e => console.log("Ждем загрузки страницы для музыки..."));
+        });
 
         /* ==========================================
            КОД ЗАГРУЗКИ ДЛЯ ГАРРИС МОДА
@@ -136,8 +146,6 @@
         let filesNeeded = 0;
 
         function GameDetails( servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, lang ) {
-            // Если хочешь чтобы имя сервера бралось само, убери "//" в начале следующей строки:
-            // document.querySelector('h1').innerText = servername;
         }
 
         function SetFilesTotal( total ) { filesTotal = total; }
