@@ -20,11 +20,11 @@
         .bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover; background-position: center;
-            opacity: 0; transition: opacity 2s ease-in-out; /* Плавность как в GMod */
+            opacity: 0; transition: opacity 2s ease-in-out; /* Плавность переходов */
         }
         .bg-image.active { opacity: 1; }
 
-        /* ЗАТЕМНЕНИЕ ЧТОБЫ ТЕКСТ БЫЛ ЧИТАЕМЫМ */
+        /* ЗАТЕМНЕНИЕ ДЛЯ ЧИТАЕМОСТИ ТЕКСТА */
         #overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
@@ -42,7 +42,7 @@
         h1 { font-size: 5rem; font-weight: 900; margin: 0; text-transform: uppercase; color: #ff3366; }
         h2 { font-size: 2rem; font-weight: 400; margin: 10px 0 30px 0; color: #fff; }
 
-        /* ИНФОБЛОК (ПРАВИЛА ИЛИ ФИШКИ) */
+        /* ИНФОБЛОК */
         .info-box {
             background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px);
             padding: 20px; border-left: 5px solid #ff3366; border-radius: 5px;
@@ -66,25 +66,23 @@
 </head>
 <body>
 
-    <!-- МУЗЫКА НА ФОНЕ. ВСТАВЬ СВОЮ ССЫЛКУ НА MP3 НИЖЕ В АТРИБУТ src="" -->
-    <audio id="bg-music" src="https://ТВОЙ_САЙТ.com/music.mp3" autoplay loop></audio>
+    <!-- МУЗЫКА НА ФОНЕ. Файл music.mp3 должен лежать на гитхабе рядом с этим кодом -->
+    <audio id="bg-music" src="music.mp3" autoplay loop></audio>
 
-    <!-- КОНТЕЙНЕР ДЛЯ ФОНОВ (КАРТИНКИ МЕНЯЮТСЯ ЧЕРЕЗ СКРИПТ ВНИЗУ) -->
+    <!-- КОНТЕЙНЕР ДЛЯ КАРТИНОК -->
     <div id="background-container"></div>
     <div id="overlay"></div>
 
     <!-- ТЕКСТ НА ЭКРАНЕ -->
     <div id="content">
-        <!-- НАЗВАНИЕ СЕРВЕРА -->
-        <h1>SUPER SERVER</h1>
+        <h1>СУПЕР СЕРВЕР</h1>
         <h2>Добро пожаловать!</h2>
         
-        <!-- БЛОК С ИНФОРМАЦИЕЙ -->
         <div class="info-box">
             • Адекватная администрация<br>
             • Уникальные аддоны<br>
             • Крутые ивенты каждые выходные<br>
-            • Прочитай правила в Discord!
+            • Заходи в наш Discord!
         </div>
     </div>
 
@@ -98,20 +96,19 @@
 
     <script>
         /* ==========================================
-           НАСТРОЙКА КАРТИНОК (ВСТАВЛЯЙ ССЫЛКИ СЮДА)
+           НАСТРОЙКА КАРТИНОК. 
+           Файлы 1.jpg, 2.jpg, 3.jpg грузи на гитхаб
            ========================================== */
         const images = [
-            "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920", // Картинка 1 (здесь тестовые в 1920p)
-            "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1920", // Картинка 2
-            "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1920"  // Картинка 3
-            // Можешь добавить еще, через запятую
+            "1.jpg", 
+            "2.jpg", 
+            "3.jpg"  
         ];
 
-        /* ЛОГИКА СМЕНЫ КАРТИНОК КАК В GMOD */
+        /* ЛОГИКА СМЕНЫ КАРТИНОК КАК В МЕНЮ GMOD */
         const bgContainer = document.getElementById('background-container');
         let currentIndex = 0;
 
-        // Создаем слои для картинок
         images.forEach((imgSrc, index) => {
             const div = document.createElement('div');
             div.className = 'bg-image';
@@ -126,20 +123,21 @@
             bgDivs[currentIndex].classList.remove('active');
             currentIndex = (currentIndex + 1) % images.length;
             bgDivs[currentIndex].classList.add('active');
-        }, 5000); // 5000 = 5 секунд на одну картинку. Можешь менять.
+        }, 5000); // 5000 = 5 секунд на одну картинку
 
-        /* УПРАВЛЕНИЕ МУЗЫКОЙ */
+        /* ГРОМКОСТЬ МУЗЫКИ (0.3 = 30%) */
         let music = document.getElementById('bg-music');
-        music.volume = 0.3; // Громкость от 0.1 до 1.0
+        music.volume = 0.3; 
 
         /* ==========================================
-           ИНТЕГРАЦИЯ С GARRYS MOD (НЕ ТРОГАТЬ)
+           КОД ЗАГРУЗКИ ДЛЯ ГАРРИС МОДА
            ========================================== */
         let filesTotal = 0;
         let filesNeeded = 0;
 
         function GameDetails( servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, lang ) {
-            document.querySelector('h1').innerText = servername;
+            // Если хочешь чтобы имя сервера бралось само, убери "//" в начале следующей строки:
+            // document.querySelector('h1').innerText = servername;
         }
 
         function SetFilesTotal( total ) { filesTotal = total; }
