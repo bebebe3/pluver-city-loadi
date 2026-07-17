@@ -39,15 +39,15 @@
             padding-left: 5%; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         }
 
-        /* НАЗВАНИЕ СЕРВЕРА (ОБНОВЛЕНО) */
+        /* НАЗВАНИЕ СЕРВЕРА */
         h1 { 
-            font-family: 'Orbitron', sans-serif; /* Тот самый квадратный шрифт */
-            font-size: 6rem; /* Сделал чуть больше, так как шрифт другой */
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 6rem; 
             font-weight: 900; 
             margin: 0; 
             text-transform: uppercase; 
             color: #ff3366; 
-            letter-spacing: 3px; /* Расстояние между буквами */
+            letter-spacing: 3px; 
         }
         h2 { font-size: 2rem; font-weight: 400; margin: 10px 0 30px 0; color: #fff; }
 
@@ -78,7 +78,22 @@
     <!-- МУЗЫКА НА ФОНЕ -->
     <audio id="bg-music" src="song.mp3" autoplay loop></audio>
 
-    <!-- КОНТЕЙНЕР ДЛЯ КАРТИНОК -->
+    <!-- ВОТ ЭТОТ БЛОК БЫЛ УДАЛЕН. Я ЕГО ВЕРНУЛ! -->
+    <div id="background-container"></div>
+    <div id="overlay"></div>
+
+    <div id="content">
+        <h1>KITTIE - TOWN</h1>
+        <h2>Добро пожаловать!</h2>
+        
+        <div class="info-box">
+            • Адекватная администрация<br>
+            • Уникальные аддоны<br>
+            • Заходи в наш Discord!
+        </div>
+    </div>
+    <!-- КОНЕЦ ВОССТАНОВЛЕННОГО БЛОКА -->
+
     <!-- ПОЛОСА ЗАГРУЗКИ -->
     <div id="loading-container">
         <div id="status-text">Загрузка файлов...</div>
@@ -118,8 +133,8 @@
 
         /* НАСТРОЙКА МУЗЫКИ */
         let music = document.getElementById('bg-music');
-        music.volume = 0.3; // Громкость 30%
-        // Принудительно запускаем музыку (иногда Garry's Mod капризничает с autoplay)
+        music.volume = 0.3; 
+        
         window.addEventListener('DOMContentLoaded', () => {
             music.play().catch(e => console.log("Ждем загрузки страницы для музыки..."));
         });
@@ -130,8 +145,7 @@
         let filesTotal = 0;
         let filesNeeded = 0;
 
-        function GameDetails( servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, lang ) {
-        }
+        function GameDetails( servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, lang ) {}
 
         function SetFilesTotal( total ) { filesTotal = total; }
         
